@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState } from 'react'
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import About from './components/About'
+import Home from './components/Home'
 
 function App() {
+  const [showAddTask, setShowAddTask] = useState(false)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <Router>
+      <div className='container'>
+        <Header
+          showForm={() => setShowAddTask(!showAddTask)}
+          show={showAddTask}
+        />
+        <Routes>
+          <Route path='/' exact element={<Home showAddTask={showAddTask} />} />
+          <Route path='/about' exact element={<About />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
+  )
 }
 
-export default App;
+export default App
